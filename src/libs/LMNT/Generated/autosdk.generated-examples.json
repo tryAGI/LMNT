@@ -1,0 +1,59 @@
+{
+  "Examples": [
+    {
+      "Order": 1,
+      "Title": "Create voice",
+      "Slug": "create-voice",
+      "Description": "Submits a request to create a voice with a supplied voice configuration and a batch of input audio data.",
+      "Language": "http",
+      "Code": "### Create voice\nPOST {{host}}/v1/ai/voice\nX-API-Key: {{api_key}}\nContent-Type: multipart/form-data\nAccept: application/json\n\n## Responses\n# 200\n# Description: OK\n# Content-Type: application/json\n# 400\n# Description: Bad Request\n# Content-Type: application/json\n# 401\n# Description: Unauthorized\n# Content-Type: application/json",
+      "Format": "http",
+      "OperationId": "createAiVoice",
+      "Setup": null
+    },
+    {
+      "Order": 2,
+      "Title": "Delete voice",
+      "Slug": "delete-voice",
+      "Description": "Deletes a voice and cancels any pending operations on it. Cannot be undone.",
+      "Language": "csharp",
+      "Code": "using var client = new LmntClient(apiKey);\n\nvar response = await client.Voice.DeleteAiVoiceByIdAsync(\n    id: \u0022123\u0022\n);",
+      "Format": "sdk",
+      "OperationId": "deleteAiVoiceById",
+      "Setup": "This example assumes \u0060using LMNT;\u0060 is in scope and \u0060apiKey\u0060 contains the required credential."
+    },
+    {
+      "Order": 3,
+      "Title": "Voice info",
+      "Slug": "voice-info",
+      "Description": "Returns details of a specific voice.",
+      "Language": "csharp",
+      "Code": "using var client = new LmntClient(apiKey);\n\nvar response = await client.Voice.GetAiVoiceByIdAsync(\n    id: \u0022123\u0022\n);\n\n// Example response:\n// {\n//   \u0022description\u0022: \u0022UK. Young adult. Conversational\u0022,\n//   \u0022gender\u0022: \u0022F\u0022,\n//   \u0022id\u0022: \u0022morgan (for user-created voices, the id is an alphanumeric string)\u0022,\n//   \u0022name\u0022: \u0022Morgan\u0022,\n//   \u0022owner\u0022: \u0022system\u0022,\n//   \u0022starred\u0022: true,\n//   \u0022type\u0022: \u0022instant\u0022,\n//   \u0022state\u0022: \u0022ready\u0022,\n//   \u0022preview_url\u0022: \u0022https://api.lmnt.com/v1/ai/morgan/preview\u0022\n// }",
+      "Format": "sdk",
+      "OperationId": "getAiVoiceById",
+      "Setup": "This example assumes \u0060using LMNT;\u0060 is in scope and \u0060apiKey\u0060 contains the required credential."
+    },
+    {
+      "Order": 4,
+      "Title": "List voices",
+      "Slug": "list-voices",
+      "Description": "Returns a list of voices available to you.",
+      "Language": "csharp",
+      "Code": "using var client = new LmntClient(apiKey);\n\nvar response = await client.Voice.GetAiVoiceListAsync(\n    starred: \u0022true\u0022,\n    owner: \u0022system,me\u0022\n);\n\n// Example response:\n// [\n//   {\n//     \u0022description\u0022: \u0022UK. Young adult. Conversational\u0022,\n//     \u0022gender\u0022: \u0022F\u0022,\n//     \u0022id\u0022: \u0022morgan (for user-created voices, the id is an alphanumeric string)\u0022,\n//     \u0022name\u0022: \u0022Morgan\u0022,\n//     \u0022owner\u0022: \u0022system\u0022,\n//     \u0022starred\u0022: true,\n//     \u0022type\u0022: \u0022professional\u0022,\n//     \u0022state\u0022: \u0022ready\u0022,\n//     \u0022preview_url\u0022: \u0022https://api.lmnt.com/v1/ai/morgan/preview\u0022\n//   }\n// ]",
+      "Format": "sdk",
+      "OperationId": "getAiVoiceList",
+      "Setup": "This example assumes \u0060using LMNT;\u0060 is in scope and \u0060apiKey\u0060 contains the required credential."
+    },
+    {
+      "Order": 5,
+      "Title": "Update voice",
+      "Slug": "update-voice",
+      "Description": "Updates metadata for a specific voice. Only provided fields will be changed.",
+      "Language": "http",
+      "Code": "### Update voice\nPUT {{host}}/v1/ai/voice/{{id}}\nX-API-Key: {{api_key}}\nContent-Type: application/json\nAccept: application/json\n\n{\n  \u0022description\u0022: \u0022string\u0022,\n  \u0022gender\u0022: \u0022string\u0022,\n  \u0022name\u0022: \u0022string\u0022,\n  \u0022starred\u0022: true\n}\n\n## Responses\n# 200\n# Description: OK\n# Content-Type: application/json\n# 400\n# Description: Bad Request\n# Content-Type: application/json\n# 401\n# Description: Unauthorized\n# Content-Type: application/json",
+      "Format": "http",
+      "OperationId": "putAiVoiceById",
+      "Setup": null
+    }
+  ]
+}

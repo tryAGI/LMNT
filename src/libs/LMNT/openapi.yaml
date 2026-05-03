@@ -1,0 +1,773 @@
+openapi: 3.0.1
+x-mcp:
+  enabled: true
+info:
+  title: LMNT
+  version: 1.0.0
+servers:
+- url: https://api.lmnt.com
+components:
+  responses:
+    BadRequest:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+            required:
+            - error
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+              status:
+                type: integer
+            required:
+            - message
+            - status
+  schemas:
+    voice:
+      description: Voice details
+      properties:
+        description:
+          description: A text description of this voice.
+          nullable: true
+          type: string
+        gender:
+          description: A tag describing the gender of this voice, e.g. `male`, `female`,
+            `nonbinary`.
+          type: string
+        id:
+          description: The unique identifier of this voice.
+          type: string
+        name:
+          description: The display name of this voice.
+          type: string
+        owner:
+          description: The owner of this voice.
+          enum:
+          - system
+          - me
+          - other
+          type: string
+        starred:
+          description: Whether this voice has been starred by you or not.
+          type: boolean
+        state:
+          description: The state of this voice in the training pipeline (e.g., `ready`,
+            `training`).
+          type: string
+        type:
+          description: 'The method by which this voice was created: `instant` or `professional`.'
+          enum:
+          - instant
+          - professional
+          type: string
+        preview_url:
+          description: A URL that returns a preview speech sample of this voice. The
+            file can be played directly in a browser or audio player.
+          type: string
+      required:
+      - owner
+      - name
+      - id
+      - state
+      type: object
+    voiceId:
+      type: string
+      description: The voice id of the voice to use; voice ids can be retrieved by
+        calls to `List voices` or `Voice info`.
+      example: leah
+    outputFormat:
+      type: string
+      enum:
+      - aac
+      - mp3
+      - ulaw
+      - wav
+      - webm
+      - pcm_s16le
+      - pcm_f32le
+      default: mp3
+      description: "The desired output format of the audio. If you are using a streaming\
+        \ endpoint, you'll generate audio faster by selecting a streamable format\
+        \ since chunks are encoded and returned as they're generated. For non-streamable\
+        \ formats, the entire audio will be synthesized before encoding.\n\nStreamable\
+        \ formats:\n- `mp3`: 96kbps MP3 audio.\n- `ulaw`: 8-bit G711 \xB5-law audio\
+        \ with a WAV header.\n- `webm`: WebM format with Opus audio codec.\n- `pcm_s16le`:\
+        \ PCM signed 16-bit little-endian audio.\n- `pcm_f32le`: PCM 32-bit floating-point\
+        \ little-endian audio.\n\nNon-streamable formats:\n- `aac`: AAC audio codec.\n\
+        - `wav`: 16-bit PCM audio in WAV container.\n"
+    sampleRate:
+      type: number
+      enum:
+      - 8000
+      - 16000
+      - 24000
+      default: 24000
+      description: The desired output sample rate in Hz. Defaults to `24000` for all
+        formats except `mulaw` which defaults to `8000`.
+    languageCode:
+      type: string
+      enum:
+      - auto
+      - ar
+      - de
+      - en
+      - es
+      - fr
+      - hi
+      - id
+      - it
+      - ja
+      - ko
+      - nl
+      - pl
+      - pt
+      - ru
+      - sv
+      - th
+      - tr
+      - uk
+      - ur
+      - vi
+      - zh
+      default: auto
+      description: The desired language. Two letter ISO 639-1 code. Defaults to auto
+        language detection, but specifying the language is recommended for faster
+        generation.
+    model:
+      type: string
+      enum:
+      - blizzard
+      default: blizzard
+      description: The model to use for synthesis. Learn more about models [here](https://docs.lmnt.com/guides/models).
+    seed:
+      type: integer
+      description: Seed used to specify a different take; defaults to random
+    text:
+      type: string
+      description: The text to synthesize; max 5000 characters per request (including
+        spaces).
+      example: hello world.
+    debug:
+      description: When set to true, the generated speech will also be saved to your
+        [clip library](https://app.lmnt.com/clips) in the LMNT playground.
+      type: boolean
+      default: false
+    speechRequest:
+      allOf:
+      - $ref: '#/components/schemas/streamSpeechRequest'
+      - type: object
+        properties:
+          return_durations:
+            description: If set as `true`, response will contain a durations object.
+            example: true
+            type: boolean
+            default: false
+    streamSpeechRequest:
+      type: object
+      required:
+      - voice
+      - text
+      properties:
+        voice:
+          $ref: '#/components/schemas/voiceId'
+        text:
+          $ref: '#/components/schemas/text'
+        model:
+          $ref: '#/components/schemas/model'
+        language:
+          $ref: '#/components/schemas/languageCode'
+        format:
+          $ref: '#/components/schemas/outputFormat'
+        sample_rate:
+          $ref: '#/components/schemas/sampleRate'
+        seed:
+          $ref: '#/components/schemas/seed'
+        debug:
+          $ref: '#/components/schemas/debug'
+        top_p:
+          type: number
+          minimum: 0
+          maximum: 1
+          default: 0.8
+          description: Controls the stability of the generated speech. A lower value
+            (like 0.3) produces more consistent, reliable speech. A higher value (like
+            0.9) gives more flexibility in how words are spoken, but might occasionally
+            produce unusual intonations or speech patterns.
+        temperature:
+          type: number
+          minimum: 0
+          default: 1
+          description: Influences how expressive and emotionally varied the speech
+            becomes. Lower values (like 0.3) create more neutral, consistent speaking
+            styles. Higher values (like 1.0) allow for more dynamic emotional range
+            and speaking styles.
+    durationObject:
+      type: object
+      required:
+      - text
+      - duration
+      - start
+      properties:
+        text:
+          description: The synthesized input elements; beginning and ending with a
+            short silence.
+          type: string
+        duration:
+          description: The spoken duration of each synthesized input element, in seconds.
+          type: number
+        start:
+          description: The start time of each synthsized input element, in seconds.
+          type: number
+  securitySchemes:
+    ApiKeyHeader:
+      type: apiKey
+      in: header
+      name: X-API-Key
+      description: Your API key; get it from your [LMNT account page](https://app.lmnt.com/account).
+  parameters:
+    VoiceIdPathParam:
+      name: id
+      in: path
+      required: true
+      description: The `id` of the voice, which can be retrieved by a call to `List
+        voices`.
+      example: '123'
+      schema:
+        type: string
+paths:
+  /v1/account:
+    get:
+      security:
+      - ApiKeyHeader: []
+      deprecated: false
+      description: Returns details about your account.
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  plan:
+                    properties:
+                      character_limit:
+                        description: The number of characters you are allowed to synthesize
+                          in this billing period.
+                        type: integer
+                      commercial_use_allowed:
+                        type: boolean
+                      instant_voice_limit:
+                        description: The number of instant voices you are allowed
+                          to create.
+                        type: integer
+                      professional_voice_limit:
+                        description: The number of professional voices you are allowed
+                          to create.
+                        nullable: true
+                        type: integer
+                      type:
+                        description: The type of plan you are subscribed to.
+                        type: string
+                    required:
+                    - character_limit
+                    - professional_voice_limit
+                    - type
+                    - commercial_use_allowed
+                    type: object
+                  usage:
+                    properties:
+                      characters:
+                        description: The number of characters you have synthesized
+                          in this billing period.
+                        type: integer
+                      instant_voices:
+                        description: The number of instant voices you have created.
+                        type: integer
+                      professional_voices:
+                        description: The number of professional voices you have created.
+                        type: integer
+                    required:
+                    - characters
+                    - professional_voices
+                    type: object
+                required:
+                - usage
+                - plan
+                type: object
+          description: OK
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      summary: Account info
+      tags: []
+      x-codeSamples:
+      - lang: JavaScript
+        source: "import Lmnt from 'lmnt-node';\n\nconst client = new Lmnt({\n  apiKey:\
+          \ 'My API Key',\n});\n\nconst account = await client.accounts.retrieve();\n\
+          \nconsole.log(account.plan);"
+      - lang: Python
+        source: "from lmnt import Lmnt\n\nclient = Lmnt(\n    api_key=\"My API Key\"\
+          ,\n)\naccount = client.accounts.retrieve()\nprint(account.plan)"
+  /v1/ai/speech:
+    post:
+      security:
+      - ApiKeyHeader: []
+      deprecated: false
+      description: 'Generates speech from text and returns a JSON object that contains
+        a **base64-encoded audio string** and optionally word-level durations (timestamps).
+
+        This endpoint waits for the entire synthesis before responding, so it is not
+        ideal for latency-sensitive applications.
+
+        '
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/speechRequest'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  audio:
+                    description: The base64-encoded audio file; the format is determined
+                      by the `format` parameter.
+                    type: string
+                  durations:
+                    description: A JSON object outlining the spoken duration of each
+                      synthesized input element (words and non-words like spaces,
+                      punctuation, etc.). See an [example of this object](https://imgur.com/Uw6qNzY.png)
+                      for the input string "Hello world!"
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/durationObject'
+                  seed:
+                    description: The seed used to generate this speech; can be used
+                      to replicate this output take (assuming the same text is resynthsized
+                      with this seed number, [see here](http://docs.lmnt.com/speech/seed)
+                      for more details).
+                    type: integer
+                required:
+                - audio
+                - seed
+                type: object
+          description: OK
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      summary: Generate speech (JSON with metadata)
+      tags:
+      - speech
+      x-codeSamples:
+      - lang: JavaScript
+        source: "import Lmnt from 'lmnt-node';\n\nconst client = new Lmnt({\n  apiKey:\
+          \ 'My API Key',\n});\n\nconst response = await client.speech.generateDetailed({\
+          \ text: 'hello world.', voice: 'leah' });\n\nconsole.log(response.audio);"
+      - lang: Python
+        source: "from lmnt import Lmnt\n\nclient = Lmnt(\n    api_key=\"My API Key\"\
+          ,\n)\nresponse = client.speech.generate_detailed(\n    text=\"hello world.\"\
+          ,\n    voice=\"leah\",\n)\nprint(response.audio)"
+  /v1/ai/speech/bytes:
+    post:
+      security:
+      - ApiKeyHeader: []
+      deprecated: false
+      description: 'Generates speech from text and streams the audio as binary data
+        chunks in real-time as they are generated.
+
+
+        This is the recommended endpoint for most text-to-speech use cases. You can
+        either stream the chunks for low-latency playback or collect all chunks to
+        get the complete audio file.
+
+        '
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/streamSpeechRequest'
+      responses:
+        '200':
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+          description: OK
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      summary: Generate speech (binary stream)
+      tags:
+      - speech
+      x-codeSamples:
+      - lang: JavaScript
+        source: "import Lmnt from 'lmnt-node';\n\nconst client = new Lmnt({\n  apiKey:\
+          \ 'My API Key',\n});\n\nconst response = await client.speech.generate({\
+          \ text: 'hello world.', voice: 'leah' });\n\nconsole.log(response);\n\n\
+          const content = await response.blob();\nconsole.log(content);"
+      - lang: Python
+        source: "from lmnt import Lmnt\n\nclient = Lmnt(\n    api_key=\"My API Key\"\
+          ,\n)\nresponse = client.speech.generate(\n    text=\"hello world.\",\n \
+          \   voice=\"leah\",\n)\nprint(response)\ncontent = response.read()\nprint(content)"
+  /v1/ai/voice:
+    post:
+      security:
+      - ApiKeyHeader: []
+      deprecated: false
+      description: Submits a request to create a voice with a supplied voice configuration
+        and a batch of input audio data.
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                name:
+                  description: The display name for this voice
+                  type: string
+                  example: new-voice
+                enhance:
+                  description: For unclean audio with background noise, applies processing
+                    to attempt to improve quality. Default is `false` as this can
+                    also degrade quality in some circumstances.
+                  type: boolean
+                  example: false
+                gender:
+                  description: A tag describing the gender of this voice. Has no effect
+                    on voice creation.
+                  type: string
+                description:
+                  description: A text description of this voice.
+                  type: string
+                files:
+                  description: 'One or more input audio files to train the voice in
+                    the form of binary `wav`, `mp3`, `mp4`, `m4a`, or `webm` attachments.
+
+                    - Max attached files: 20.
+
+                    - Max total file size: 250 MB.'
+                  type: array
+                  minItems: 1
+                  maxItems: 20
+                  items:
+                    type: string
+                    format: binary
+                  example: '@/Users/user/file.wav'
+              required:
+              - name
+              - enhance
+              - files
+      responses:
+        '200':
+          content:
+            application/json:
+              examples:
+                '1':
+                  summary: Success
+                  value:
+                    description: a newly created voice
+                    gender: male
+                    id: 123456789abcdef
+                    name: new-voice
+                    owner: me
+                    starred: false
+                    state: ready
+                    type: instant
+              schema:
+                $ref: '#/components/schemas/voice'
+          description: OK
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      summary: Create voice
+      tags:
+      - voice
+      x-codeSamples:
+      - lang: JavaScript
+        source: "import Lmnt from 'lmnt-node';\n\nconst client = new Lmnt({\n  apiKey:\
+          \ 'My API Key',\n});\n\nconst voice = await client.voices.create({\n  enhance:\
+          \ false,\n  files: [fs.createReadStream('path/to/file')],\n  name: 'new-voice',\n\
+          });\n\nconsole.log(voice.id);"
+      - lang: Python
+        source: "from lmnt import Lmnt\n\nclient = Lmnt(\n    api_key=\"My API Key\"\
+          ,\n)\nvoice = client.voices.create(\n    enhance=False,\n    files=[b\"\
+          raw file contents\"],\n    name=\"new-voice\",\n)\nprint(voice.id)"
+  /v1/ai/voice/list:
+    get:
+      security:
+      - ApiKeyHeader: []
+      deprecated: false
+      description: Returns a list of voices available to you.
+      parameters:
+      - description: If true, only returns voices that you have starred.
+        example: 'true'
+        in: query
+        name: starred
+        required: false
+        schema:
+          type: string
+          default: 'false'
+      - description: Which owner's voices to return. Choose from `system`, `me`, or
+          `all`.
+        example: system,me
+        in: query
+        name: owner
+        required: false
+        schema:
+          type: string
+          default: all
+      responses:
+        '200':
+          content:
+            application/json:
+              examples:
+                '1':
+                  summary: Success
+                  value:
+                  - description: UK. Young adult. Conversational
+                    gender: F
+                    id: morgan (for user-created voices, the id is an alphanumeric
+                      string)
+                    name: Morgan
+                    owner: system
+                    starred: true
+                    type: professional
+                    state: ready
+                    preview_url: https://api.lmnt.com/v1/ai/morgan/preview
+              schema:
+                items:
+                  $ref: '#/components/schemas/voice'
+                type: array
+          description: OK
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      summary: List voices
+      tags:
+      - voice
+      x-codeSamples:
+      - lang: JavaScript
+        source: "import Lmnt from 'lmnt-node';\n\nconst client = new Lmnt({\n  apiKey:\
+          \ 'My API Key',\n});\n\nconst voices = await client.voices.list();\n\nconsole.log(voices);"
+      - lang: Python
+        source: "from lmnt import Lmnt\n\nclient = Lmnt(\n    api_key=\"My API Key\"\
+          ,\n)\nvoices = client.voices.list()\nprint(voices)"
+  /v1/ai/voice/{id}:
+    delete:
+      security:
+      - ApiKeyHeader: []
+      deprecated: false
+      description: Deletes a voice and cancels any pending operations on it. Cannot
+        be undone.
+      parameters:
+      - $ref: '#/components/parameters/VoiceIdPathParam'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  success:
+                    type: boolean
+                required:
+                - success
+                type: object
+          description: OK
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      summary: Delete voice
+      tags:
+      - voice
+      x-codeSamples:
+      - lang: JavaScript
+        source: "import Lmnt from 'lmnt-node';\n\nconst client = new Lmnt({\n  apiKey:\
+          \ 'My API Key',\n});\n\nconst voice = await client.voices.delete('123');\n\
+          \nconsole.log(voice.success);"
+      - lang: Python
+        source: "from lmnt import Lmnt\n\nclient = Lmnt(\n    api_key=\"My API Key\"\
+          ,\n)\nvoice = client.voices.delete(\n    \"id\",\n)\nprint(voice.success)"
+    get:
+      security:
+      - ApiKeyHeader: []
+      deprecated: false
+      description: Returns details of a specific voice.
+      parameters:
+      - $ref: '#/components/parameters/VoiceIdPathParam'
+      responses:
+        '200':
+          content:
+            application/json:
+              examples:
+                '1':
+                  summary: Success
+                  value:
+                    description: UK. Young adult. Conversational
+                    gender: F
+                    id: morgan (for user-created voices, the id is an alphanumeric
+                      string)
+                    name: Morgan
+                    owner: system
+                    starred: true
+                    type: instant
+                    state: ready
+                    preview_url: https://api.lmnt.com/v1/ai/morgan/preview
+              schema:
+                $ref: '#/components/schemas/voice'
+          description: OK
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      summary: Voice info
+      tags:
+      - voice
+      x-codeSamples:
+      - lang: JavaScript
+        source: "import Lmnt from 'lmnt-node';\n\nconst client = new Lmnt({\n  apiKey:\
+          \ 'My API Key',\n});\n\nconst voice = await client.voices.retrieve('123');\n\
+          \nconsole.log(voice.id);"
+      - lang: Python
+        source: "from lmnt import Lmnt\n\nclient = Lmnt(\n    api_key=\"My API Key\"\
+          ,\n)\nvoice = client.voices.retrieve(\n    \"id\",\n)\nprint(voice.id)"
+    put:
+      security:
+      - ApiKeyHeader: []
+      deprecated: false
+      description: Updates metadata for a specific voice. Only provided fields will
+        be changed.
+      parameters:
+      - $ref: '#/components/parameters/VoiceIdPathParam'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                description:
+                  description: 'A description of this voice. '
+                  type: string
+                gender:
+                  description: A tag describing the gender of this voice, e.g. `male`,
+                    `female`, `nonbinary`.
+                  type: string
+                name:
+                  description: The display name for this voice.
+                  type: string
+                starred:
+                  description: If `true`, adds this voice to your starred list.
+                  type: boolean
+              type: object
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  voice:
+                    $ref: '#/components/schemas/voice'
+                required:
+                - voice
+                type: object
+          description: OK
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      summary: Update voice
+      tags:
+      - voice
+      x-codeSamples:
+      - lang: JavaScript
+        source: "import Lmnt from 'lmnt-node';\n\nconst client = new Lmnt({\n  apiKey:\
+          \ 'My API Key',\n});\n\nconst voice = await client.voices.update('123');\n\
+          \nconsole.log(voice.voice);"
+      - lang: Python
+        source: "from lmnt import Lmnt\n\nclient = Lmnt(\n    api_key=\"My API Key\"\
+          ,\n)\nvoice = client.voices.update(\n    id=\"123\",\n)\nprint(voice.voice)"
+  /v1/ai/speech/convert:
+    post:
+      security:
+      - ApiKeyHeader: []
+      deprecated: false
+      description: Converts speech from one voice to another.
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+              - audio
+              - voice
+              properties:
+                audio:
+                  description: 'The audio file to be converted into a new voice. Specify
+                    source language using the `language` parameter. Acceptable formats:
+                    `wav`, `mp3`. Max file size: 1 MB.'
+                  type: string
+                  format: binary
+                  example: '@/Users/user/file1.wav'
+                voice:
+                  $ref: '#/components/schemas/voiceId'
+                  description: The voice id to convert the speech into. Voice ids
+                    can be retrieved by calls to `List voices` or `Voice info`.
+                format:
+                  $ref: '#/components/schemas/outputFormat'
+                sample_rate:
+                  $ref: '#/components/schemas/sampleRate'
+                language:
+                  $ref: '#/components/schemas/languageCode'
+                  description: The language of the source audio. Two letter ISO 639-1
+                    code.
+      responses:
+        '200':
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+          description: OK
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+      summary: Convert audio using a specific voice
+      tags:
+      - speech
+      x-codeSamples:
+      - lang: JavaScript
+        source: "import Lmnt from 'lmnt-node';\n\nconst client = new Lmnt({\n  apiKey:\
+          \ 'My API Key',\n});\n\nconst response = await client.speech.convert({ audio:\
+          \ fs.createReadStream('path/to/file'), voice: 'leah' });\n\nconsole.log(response);\n\
+          \nconst content = await response.blob();\nconsole.log(content);"
+      - lang: Python
+        source: "from lmnt import Lmnt\n\nclient = Lmnt(\n    api_key=\"My API Key\"\
+          ,\n)\nresponse = client.speech.convert(\n    audio=b\"raw file contents\"\
+          ,\n    voice=\"leah\",\n)\nprint(response)\ncontent = response.read()\n\
+          print(content)"
+tags:
+- name: voice
+- name: speech
+
+---
+# The AsyncAPI spec for the WebSocket speech streaming API.
