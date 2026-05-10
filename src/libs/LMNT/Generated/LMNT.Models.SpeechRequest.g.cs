@@ -42,6 +42,13 @@ namespace LMNT
         /// <summary>
         /// 
         /// </summary>
+        public global::LMNT.StreamSpeechRequest PickStream() => IsStream
+            ? Stream!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Stream' but the value was {ToString()}.");
+
+        /// <summary>
+        /// 
+        /// </summary>
 #if NET6_0_OR_GREATER
         public global::LMNT.SpeechRequestVariant2? SpeechRequestVariant2 { get; init; }
 #else
@@ -68,6 +75,13 @@ namespace LMNT
             value = SpeechRequestVariant2;
             return IsSpeechRequestVariant2;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::LMNT.SpeechRequestVariant2 PickSpeechRequestVariant2() => IsSpeechRequestVariant2
+            ? SpeechRequestVariant2!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'SpeechRequestVariant2' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>

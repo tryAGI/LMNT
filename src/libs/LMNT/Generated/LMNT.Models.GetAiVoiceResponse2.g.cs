@@ -50,5 +50,6 @@ namespace LMNT
         public GetAiVoiceResponse2()
         {
         }
+
     }
 }

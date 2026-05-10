@@ -86,5 +86,6 @@ namespace LMNT
         public GetAccountResponsePlan()
         {
         }
+
     }
 }
