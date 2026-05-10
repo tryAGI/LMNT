@@ -89,6 +89,11 @@ namespace LMNT
         /// <summary>
         /// 
         /// </summary>
+        public static SpeechRequest FromStream(global::LMNT.StreamSpeechRequest? value) => new SpeechRequest(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator SpeechRequest(global::LMNT.SpeechRequestVariant2 value) => new SpeechRequest((global::LMNT.SpeechRequestVariant2?)value);
 
         /// <summary>
@@ -103,6 +108,11 @@ namespace LMNT
         {
             SpeechRequestVariant2 = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static SpeechRequest FromSpeechRequestVariant2(global::LMNT.SpeechRequestVariant2? value) => new SpeechRequest(value);
 
         /// <summary>
         /// 
