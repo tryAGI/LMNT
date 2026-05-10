@@ -66,5 +66,6 @@ namespace LMNT
         public DurationObject()
         {
         }
+
     }
 }
