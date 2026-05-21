@@ -29,6 +29,26 @@ namespace LMNT
         /// <summary>
         /// 
         /// </summary>
+        public bool TryPickStream(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::LMNT.StreamSpeechRequest? value)
+        {
+            value = Stream;
+            return IsStream;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::LMNT.StreamSpeechRequest PickStream() => IsStream
+            ? Stream!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'Stream' but the value was {ToString()}.");
+
+        /// <summary>
+        /// 
+        /// </summary>
 #if NET6_0_OR_GREATER
         public global::LMNT.SpeechRequestVariant2? SpeechRequestVariant2 { get; init; }
 #else
@@ -42,6 +62,26 @@ namespace LMNT
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(SpeechRequestVariant2))]
 #endif
         public bool IsSpeechRequestVariant2 => SpeechRequestVariant2 != null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool TryPickSpeechRequestVariant2(
+#if NET6_0_OR_GREATER
+            [global::System.Diagnostics.CodeAnalysis.NotNullWhen(true)]
+#endif
+            out global::LMNT.SpeechRequestVariant2? value)
+        {
+            value = SpeechRequestVariant2;
+            return IsSpeechRequestVariant2;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public global::LMNT.SpeechRequestVariant2 PickSpeechRequestVariant2() => IsSpeechRequestVariant2
+            ? SpeechRequestVariant2!
+            : throw new global::System.InvalidOperationException($"Expected union variant 'SpeechRequestVariant2' but the value was {ToString()}.");
         /// <summary>
         /// 
         /// </summary>
@@ -63,6 +103,11 @@ namespace LMNT
         /// <summary>
         /// 
         /// </summary>
+        public static SpeechRequest FromStream(global::LMNT.StreamSpeechRequest? value) => new SpeechRequest(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static implicit operator SpeechRequest(global::LMNT.SpeechRequestVariant2 value) => new SpeechRequest((global::LMNT.SpeechRequestVariant2?)value);
 
         /// <summary>
@@ -77,6 +122,11 @@ namespace LMNT
         {
             SpeechRequestVariant2 = value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static SpeechRequest FromSpeechRequestVariant2(global::LMNT.SpeechRequestVariant2? value) => new SpeechRequest(value);
 
         /// <summary>
         /// 
@@ -118,8 +168,8 @@ namespace LMNT
         /// 
         /// </summary>
         public TResult? Match<TResult>(
-            global::System.Func<global::LMNT.StreamSpeechRequest?, TResult>? stream = null,
-            global::System.Func<global::LMNT.SpeechRequestVariant2?, TResult>? speechRequestVariant2 = null,
+            global::System.Func<global::LMNT.StreamSpeechRequest, TResult>? stream = null,
+            global::System.Func<global::LMNT.SpeechRequestVariant2, TResult>? speechRequestVariant2 = null,
             bool validate = true)
         {
             if (validate)
@@ -143,8 +193,32 @@ namespace LMNT
         /// 
         /// </summary>
         public void Match(
-            global::System.Action<global::LMNT.StreamSpeechRequest?>? stream = null,
-            global::System.Action<global::LMNT.SpeechRequestVariant2?>? speechRequestVariant2 = null,
+            global::System.Action<global::LMNT.StreamSpeechRequest>? stream = null,
+
+            global::System.Action<global::LMNT.SpeechRequestVariant2>? speechRequestVariant2 = null,
+            bool validate = true)
+        {
+            if (validate)
+            {
+                Validate();
+            }
+
+            if (IsStream)
+            {
+                stream?.Invoke(Stream!);
+            }
+            else if (IsSpeechRequestVariant2)
+            {
+                speechRequestVariant2?.Invoke(SpeechRequestVariant2!);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Switch(
+            global::System.Action<global::LMNT.StreamSpeechRequest>? stream = null,
+            global::System.Action<global::LMNT.SpeechRequestVariant2>? speechRequestVariant2 = null,
             bool validate = true)
         {
             if (validate)

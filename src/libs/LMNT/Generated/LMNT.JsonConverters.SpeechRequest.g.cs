@@ -85,6 +85,7 @@ namespace LMNT.JsonConverters
             {
                 try
                 {
+
                     var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::LMNT.StreamSpeechRequest), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::LMNT.StreamSpeechRequest> ??
                                    throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::LMNT.StreamSpeechRequest).Name}");
                     stream = global::System.Text.Json.JsonSerializer.Deserialize(__rawJson, typeInfo);
@@ -95,9 +96,13 @@ namespace LMNT.JsonConverters
                 catch (global::System.InvalidOperationException)
                 {
                 }
+            }
 
+            if (stream == null && speechRequestVariant2 == null)
+            {
                 try
                 {
+
                     var typeInfo = typeInfoResolver.GetTypeInfo(typeof(global::LMNT.SpeechRequestVariant2), options) as global::System.Text.Json.Serialization.Metadata.JsonTypeInfo<global::LMNT.SpeechRequestVariant2> ??
                                    throw new global::System.InvalidOperationException($"Cannot get type info for {typeof(global::LMNT.SpeechRequestVariant2).Name}");
                     speechRequestVariant2 = global::System.Text.Json.JsonSerializer.Deserialize(__rawJson, typeInfo);

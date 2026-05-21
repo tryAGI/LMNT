@@ -33,6 +33,54 @@ namespace LMNT
         /// Generates speech from text and streams the audio as binary data chunks in real-time as they are generated.<br/>
         /// This is the recommended endpoint for most text-to-speech use cases. You can either stream the chunks for low-latency playback or collect all chunks to get the complete audio file.
         /// </summary>
+        /// <param name="request"></param>
+        /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
+        /// <param name="cancellationToken">The token to cancel the operation with</param>
+        /// <exception cref="global::LMNT.ApiException"></exception>
+        /// <remarks>
+        /// import Lmnt from 'lmnt-node';<br/>
+        /// const client = new Lmnt({<br/>
+        ///   apiKey: 'My API Key',<br/>
+        /// });<br/>
+        /// const response = await client.speech.generate({ text: 'hello world.', voice: 'leah' });<br/>
+        /// console.log(response);<br/>
+        /// const content = await response.blob();<br/>
+        /// console.log(content);
+        /// </remarks>
+        global::System.Threading.Tasks.Task<global::System.IO.Stream> CreateAiSpeechBytesAsStreamAsync(
+
+            global::LMNT.StreamSpeechRequest request,
+            global::LMNT.AutoSDKRequestOptions? requestOptions = default,
+            global::System.Threading.CancellationToken cancellationToken = default);
+        /// <summary>
+        /// Generate speech (binary stream)<br/>
+        /// Generates speech from text and streams the audio as binary data chunks in real-time as they are generated.<br/>
+        /// This is the recommended endpoint for most text-to-speech use cases. You can either stream the chunks for low-latency playback or collect all chunks to get the complete audio file.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <param name="requestOptions">Per-request overrides such as headers, query parameters, timeout, retries, and response buffering.</param>
+        /// <param name="cancellationToken">The token to cancel the operation with</param>
+        /// <exception cref="global::LMNT.ApiException"></exception>
+        /// <remarks>
+        /// import Lmnt from 'lmnt-node';<br/>
+        /// const client = new Lmnt({<br/>
+        ///   apiKey: 'My API Key',<br/>
+        /// });<br/>
+        /// const response = await client.speech.generate({ text: 'hello world.', voice: 'leah' });<br/>
+        /// console.log(response);<br/>
+        /// const content = await response.blob();<br/>
+        /// console.log(content);
+        /// </remarks>
+        global::System.Threading.Tasks.Task<global::LMNT.AutoSDKHttpResponse<byte[]>> CreateAiSpeechBytesAsResponseAsync(
+
+            global::LMNT.StreamSpeechRequest request,
+            global::LMNT.AutoSDKRequestOptions? requestOptions = default,
+            global::System.Threading.CancellationToken cancellationToken = default);
+        /// <summary>
+        /// Generate speech (binary stream)<br/>
+        /// Generates speech from text and streams the audio as binary data chunks in real-time as they are generated.<br/>
+        /// This is the recommended endpoint for most text-to-speech use cases. You can either stream the chunks for low-latency playback or collect all chunks to get the complete audio file.
+        /// </summary>
         /// <param name="voice">
         /// The voice id of the voice to use; voice ids can be retrieved by calls to `List voices` or `Voice info`.<br/>
         /// Example: leah

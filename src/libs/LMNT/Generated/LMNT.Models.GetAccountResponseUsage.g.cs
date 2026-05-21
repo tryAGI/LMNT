@@ -65,5 +65,6 @@ namespace LMNT
         public GetAccountResponseUsage()
         {
         }
+
     }
 }
