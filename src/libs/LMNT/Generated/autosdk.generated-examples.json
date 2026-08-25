@@ -6,7 +6,7 @@
       "Slug": "create-voice",
       "Description": "Submits a request to create a voice with a supplied voice configuration and a batch of input audio data.",
       "Language": "http",
-      "Code": "### Create voice\nPOST {{host}}/v1/ai/voice\nX-API-Key: {{api_key}}\nContent-Type: multipart/form-data\nAccept: application/json\n\n## Responses\n# 200\n# Description: OK\n# Content-Type: application/json\n# 400\n# Description: Bad Request\n# Content-Type: application/json\n# 401\n# Description: Unauthorized\n# Content-Type: application/json",
+      "Code": "### Create voice\nPOST {{host}}/v1/ai/voice\nX-API-Key: {{api_key}}\nContent-Type: multipart/form-data; boundary=AutoSDKBoundary\nAccept: application/json\n\n--AutoSDKBoundary\nContent-Disposition: form-data; name=\u0022name\u0022\n\nnew-voice\n--AutoSDKBoundary\nContent-Disposition: form-data; name=\u0022enhance\u0022\n\nfalse\n--AutoSDKBoundary\nContent-Disposition: form-data; name=\u0022gender\u0022\n\nstring\n--AutoSDKBoundary\nContent-Disposition: form-data; name=\u0022description\u0022\n\nstring\n--AutoSDKBoundary\nContent-Disposition: form-data; name=\u0022files\u0022; filename=\u0022files.bin\u0022\nContent-Type: application/octet-stream\n\n\u003C ./files.bin\n--AutoSDKBoundary--\n\n## Responses\n# 200\n# Description: OK\n# Content-Type: application/json\n# 400\n# Description: Bad Request\n# Content-Type: application/json\n# 401\n# Description: Unauthorized\n# Content-Type: application/json",
       "Format": "http",
       "OperationId": "createAiVoice",
       "Setup": null
