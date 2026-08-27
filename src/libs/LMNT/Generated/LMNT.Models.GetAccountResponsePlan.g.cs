@@ -4,7 +4,7 @@
 namespace LMNT
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public sealed partial class GetAccountResponsePlan
     {
@@ -16,7 +16,7 @@ namespace LMNT
         public required int CharacterLimit { get; set; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("commercial_use_allowed")]
         [global::System.Text.Json.Serialization.JsonRequired]

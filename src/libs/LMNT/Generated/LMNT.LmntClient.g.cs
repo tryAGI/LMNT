@@ -10,7 +10,7 @@ namespace LMNT
     public sealed partial class LmntClient : global::LMNT.ILmntClient, global::System.IDisposable
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public const string DefaultBaseUrl = "https://api.lmnt.com/";
 
@@ -37,7 +37,7 @@ namespace LMNT
         internal global::System.Lazy<global::System.Text.Json.Serialization.JsonSerializerContext> JsonSerializerContextProvider { get; set; } = new(() => global::LMNT.SourceGenerationContext.Default);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::System.Text.Json.Serialization.JsonSerializerContext JsonSerializerContext
         {
@@ -47,7 +47,7 @@ namespace LMNT
 
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public SpeechClient Speech => new SpeechClient(HttpClient, baseUri: null, authorizations: Authorizations, options: Options)
         {
@@ -56,7 +56,7 @@ namespace LMNT
         };
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public VoiceClient Voice => new VoiceClient(HttpClient, baseUri: null, authorizations: Authorizations, options: Options)
         {

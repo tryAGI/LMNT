@@ -4,12 +4,12 @@
 namespace LMNT
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public sealed partial class PutAiVoiceRequest
     {
         /// <summary>
-        /// A description of this voice. 
+        /// A description of this voice.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("description")]
         public string? Description { get; set; }
@@ -42,7 +42,7 @@ namespace LMNT
         /// Initializes a new instance of the <see cref="PutAiVoiceRequest" /> class.
         /// </summary>
         /// <param name="description">
-        /// A description of this voice. 
+        /// A description of this voice.
         /// </param>
         /// <param name="gender">
         /// A tag describing the gender of this voice, e.g. `male`, `female`, `nonbinary`.

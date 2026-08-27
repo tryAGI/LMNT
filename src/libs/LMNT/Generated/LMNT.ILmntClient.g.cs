@@ -39,18 +39,18 @@ namespace LMNT
 
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         global::System.Text.Json.Serialization.JsonSerializerContext JsonSerializerContext { get; set; }
 
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public SpeechClient Speech { get; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public VoiceClient Voice { get; }
 
