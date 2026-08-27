@@ -5,12 +5,12 @@
 namespace LMNT
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public readonly partial struct SpeechRequest : global::System.IEquatable<SpeechRequest>
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         public global::LMNT.StreamSpeechRequest? Stream { get; init; }
@@ -19,7 +19,7 @@ namespace LMNT
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(Stream))]
@@ -27,7 +27,7 @@ namespace LMNT
         public bool IsStream => Stream != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickStream(
 #if NET6_0_OR_GREATER
@@ -40,14 +40,14 @@ namespace LMNT
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::LMNT.StreamSpeechRequest PickStream() => IsStream
             ? Stream!
             : throw new global::System.InvalidOperationException($"Expected union variant 'Stream' but the value was {ToString()}.");
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         public global::LMNT.SpeechRequestVariant2? SpeechRequestVariant2 { get; init; }
@@ -56,7 +56,7 @@ namespace LMNT
 #endif
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
 #if NET6_0_OR_GREATER
         [global::System.Diagnostics.CodeAnalysis.MemberNotNullWhen(true, nameof(SpeechRequestVariant2))]
@@ -64,7 +64,7 @@ namespace LMNT
         public bool IsSpeechRequestVariant2 => SpeechRequestVariant2 != null;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool TryPickSpeechRequestVariant2(
 #if NET6_0_OR_GREATER
@@ -77,23 +77,23 @@ namespace LMNT
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public global::LMNT.SpeechRequestVariant2 PickSpeechRequestVariant2() => IsSpeechRequestVariant2
             ? SpeechRequestVariant2!
             : throw new global::System.InvalidOperationException($"Expected union variant 'SpeechRequestVariant2' but the value was {ToString()}.");
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator SpeechRequest(global::LMNT.StreamSpeechRequest value) => new SpeechRequest((global::LMNT.StreamSpeechRequest?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::LMNT.StreamSpeechRequest?(SpeechRequest @this) => @this.Stream;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public SpeechRequest(global::LMNT.StreamSpeechRequest? value)
         {
@@ -101,22 +101,22 @@ namespace LMNT
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static SpeechRequest FromStream(global::LMNT.StreamSpeechRequest? value) => new SpeechRequest(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator SpeechRequest(global::LMNT.SpeechRequestVariant2 value) => new SpeechRequest((global::LMNT.SpeechRequestVariant2?)value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static implicit operator global::LMNT.SpeechRequestVariant2?(SpeechRequest @this) => @this.SpeechRequestVariant2;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public SpeechRequest(global::LMNT.SpeechRequestVariant2? value)
         {
@@ -124,12 +124,12 @@ namespace LMNT
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static SpeechRequest FromSpeechRequestVariant2(global::LMNT.SpeechRequestVariant2? value) => new SpeechRequest(value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public SpeechRequest(
             global::LMNT.StreamSpeechRequest? stream,
@@ -141,23 +141,23 @@ namespace LMNT
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public object? Object =>
             SpeechRequestVariant2 as object ??
-            Stream as object 
+            Stream as object
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override string? ToString() =>
             Stream?.ToString() ??
-            SpeechRequestVariant2?.ToString() 
+            SpeechRequestVariant2?.ToString()
             ;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Validate()
         {
@@ -165,7 +165,7 @@ namespace LMNT
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public TResult? Match<TResult>(
             global::System.Func<global::LMNT.StreamSpeechRequest, TResult>? stream = null,
@@ -190,7 +190,7 @@ namespace LMNT
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Match(
             global::System.Action<global::LMNT.StreamSpeechRequest>? stream = null,
@@ -214,7 +214,7 @@ namespace LMNT
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Switch(
             global::System.Action<global::LMNT.StreamSpeechRequest>? stream = null,
@@ -237,7 +237,7 @@ namespace LMNT
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override int GetHashCode()
         {
@@ -258,18 +258,18 @@ namespace LMNT
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Equals(SpeechRequest other)
         {
             return
                 global::System.Collections.Generic.EqualityComparer<global::LMNT.StreamSpeechRequest?>.Default.Equals(Stream, other.Stream) &&
-                global::System.Collections.Generic.EqualityComparer<global::LMNT.SpeechRequestVariant2?>.Default.Equals(SpeechRequestVariant2, other.SpeechRequestVariant2) 
+                global::System.Collections.Generic.EqualityComparer<global::LMNT.SpeechRequestVariant2?>.Default.Equals(SpeechRequestVariant2, other.SpeechRequestVariant2)
                 ;
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator ==(SpeechRequest obj1, SpeechRequest obj2)
         {
@@ -277,7 +277,7 @@ namespace LMNT
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static bool operator !=(SpeechRequest obj1, SpeechRequest obj2)
         {
@@ -285,7 +285,7 @@ namespace LMNT
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public override bool Equals(object? obj)
         {

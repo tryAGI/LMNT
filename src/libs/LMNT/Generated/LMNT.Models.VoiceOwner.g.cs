@@ -9,15 +9,15 @@ namespace LMNT
     public enum VoiceOwner
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Me,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Other,
         /// <summary>
-        /// 
+        ///
         /// </summary>
         System,
     }

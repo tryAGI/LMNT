@@ -10,7 +10,7 @@ namespace LMNT
     public enum Model
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         Blizzard,
     }

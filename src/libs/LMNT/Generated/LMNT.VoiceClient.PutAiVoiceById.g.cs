@@ -163,7 +163,7 @@ namespace LMNT
                          __authorization.Location == "Header")
                 {
                     __httpRequest.Headers.Add(__authorization.Name, __authorization.Value);
-                } 
+                }
             }
                             var __httpRequestContentBody = request.ToJson(JsonSerializerContext);
                             var __httpRequestContent = new global::System.Net.Http.StringContent(
@@ -538,7 +538,7 @@ namespace LMNT
         /// </summary>
         /// <param name="id"></param>
         /// <param name="description">
-        /// A description of this voice. 
+        /// A description of this voice.
         /// </param>
         /// <param name="gender">
         /// A tag describing the gender of this voice, e.g. `male`, `female`, `nonbinary`.

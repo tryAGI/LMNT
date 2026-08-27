@@ -4,12 +4,12 @@
 namespace LMNT
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public sealed partial class CreateAiSpeechBytesResponse
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("error")]
         [global::System.Text.Json.Serialization.JsonRequired]

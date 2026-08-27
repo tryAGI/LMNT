@@ -20,7 +20,7 @@ namespace LMNT.JsonConverters
                     {
                         return global::LMNT.ModelExtensions.ToEnum(stringValue) ?? default;
                     }
-                    
+
                     break;
                 }
                 case global::System.Text.Json.JsonTokenType.Number:

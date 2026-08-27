@@ -4,7 +4,7 @@
 namespace LMNT
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public sealed partial class GetAccountResponseUsage
     {
