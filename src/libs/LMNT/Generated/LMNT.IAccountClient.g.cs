@@ -7,7 +7,7 @@ namespace LMNT
     /// If no httpClient is provided, a new one will be created.<br/>
     /// If no baseUri is provided, the default baseUri from OpenAPI spec will be used.
     /// </summary>
-    public partial interface ILmntClient : global::System.IDisposable
+    public partial interface IAccountClient : global::System.IDisposable
     {
         /// <summary>
         /// The HttpClient instance.
@@ -43,21 +43,6 @@ namespace LMNT
         /// </summary>
         global::System.Text.Json.Serialization.JsonSerializerContext JsonSerializerContext { get; set; }
 
-
-        /// <summary>
-        ///
-        /// </summary>
-        public AccountClient Account { get; }
-
-        /// <summary>
-        ///
-        /// </summary>
-        public SpeechClient Speech { get; }
-
-        /// <summary>
-        ///
-        /// </summary>
-        public VoiceClient Voice { get; }
 
     }
 }

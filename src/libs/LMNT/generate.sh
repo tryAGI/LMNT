@@ -18,8 +18,8 @@ rm -rf Generated
 raw_spec="$(mktemp)"
 trap 'rm -f "$raw_spec"' EXIT
 
-fetch_spec --fail --silent --show-error --location https://api.lmnt.com/spec -o "$raw_spec"
-awk '/^openapi:/ { found = 1 } /^asyncapi:/ { found = 0 } found { print }' "$raw_spec" > openapi.yaml
+fetch_spec https://storage.googleapis.com/lmnt-public/specs/1.1/openapi.yaml -o "$raw_spec"
+mv "$raw_spec" openapi.yaml
 
 autosdk generate openapi.yaml \
   --namespace LMNT \

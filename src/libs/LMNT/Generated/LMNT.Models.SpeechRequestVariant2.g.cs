@@ -9,13 +9,13 @@ namespace LMNT
     public sealed partial class SpeechRequestVariant2
     {
         /// <summary>
-        /// If set as `true`, response will contain a durations object.<br/>
+        /// If set as `true`, the response will contain a `timestamps` array describing where each input element falls in the generated audio.<br/>
         /// Default Value: false<br/>
         /// Example: true
         /// </summary>
         /// <example>true</example>
-        [global::System.Text.Json.Serialization.JsonPropertyName("return_durations")]
-        public bool? ReturnDurations { get; set; }
+        [global::System.Text.Json.Serialization.JsonPropertyName("return_timestamps")]
+        public bool? ReturnTimestamps { get; set; }
 
         /// <summary>
         /// Additional properties that are not explicitly defined in the schema
@@ -26,8 +26,8 @@ namespace LMNT
         /// <summary>
         /// Initializes a new instance of the <see cref="SpeechRequestVariant2" /> class.
         /// </summary>
-        /// <param name="returnDurations">
-        /// If set as `true`, response will contain a durations object.<br/>
+        /// <param name="returnTimestamps">
+        /// If set as `true`, the response will contain a `timestamps` array describing where each input element falls in the generated audio.<br/>
         /// Default Value: false<br/>
         /// Example: true
         /// </param>
@@ -35,9 +35,9 @@ namespace LMNT
         [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembers]
 #endif
         public SpeechRequestVariant2(
-            bool? returnDurations)
+            bool? returnTimestamps)
         {
-            this.ReturnDurations = returnDurations;
+            this.ReturnTimestamps = returnTimestamps;
         }
 
         /// <summary>

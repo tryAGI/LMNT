@@ -18,16 +18,16 @@ namespace LMNT
         public required string Voice { get; set; }
 
         /// <summary>
-        /// The text to synthesize; max 5000 characters per request (including spaces).<br/>
-        /// Example: hello world.
+        /// The text to generate speech from; max 5000 characters per request (including spaces).<br/>
+        /// Example: Uhh, did you see the weather in Palo Alto tomorrow? Yeah, can't believe it's gonna rain, dude. Like what?
         /// </summary>
-        /// <example>hello world.</example>
+        /// <example>Uhh, did you see the weather in Palo Alto tomorrow? Yeah, can't believe it's gonna rain, dude. Like what?</example>
         [global::System.Text.Json.Serialization.JsonPropertyName("text")]
         [global::System.Text.Json.Serialization.JsonRequired]
         public required string Text { get; set; }
 
         /// <summary>
-        /// The model to use for synthesis. Learn more about models [here](https://docs.lmnt.com/guides/models).<br/>
+        /// The model to use for speech generation. Learn more about models [here](https://docs.lmnt.com/models/overview).<br/>
         /// Default Value: blizzard
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("model")]
@@ -43,7 +43,7 @@ namespace LMNT
         public global::LMNT.LanguageCode? Language { get; set; }
 
         /// <summary>
-        /// The desired output format of the audio. If you are using a streaming endpoint, you'll generate audio faster by selecting a streamable format since chunks are encoded and returned as they're generated. For non-streamable formats, the entire audio will be synthesized before encoding.<br/>
+        /// The desired output format of the audio. If you are using a streaming endpoint, you'll generate audio faster by selecting a streamable format since chunks are encoded and returned as they're generated. For non-streamable formats, all speech will be generated before encoding.<br/>
         /// Streamable formats:<br/>
         /// - `mp3`: 96kbps MP3 audio.<br/>
         /// - `ulaw`: 8-bit G711 µ-law audio with a WAV header.<br/>
@@ -65,12 +65,6 @@ namespace LMNT
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("sample_rate")]
         public double? SampleRate { get; set; }
-
-        /// <summary>
-        /// Seed used to specify a different take; defaults to random
-        /// </summary>
-        [global::System.Text.Json.Serialization.JsonPropertyName("seed")]
-        public int? Seed { get; set; }
 
         /// <summary>
         /// When set to true, the generated speech will also be saved to your [clip library](https://app.lmnt.com/clips) in the LMNT playground.<br/>
@@ -107,11 +101,11 @@ namespace LMNT
         /// Example: leah
         /// </param>
         /// <param name="text">
-        /// The text to synthesize; max 5000 characters per request (including spaces).<br/>
-        /// Example: hello world.
+        /// The text to generate speech from; max 5000 characters per request (including spaces).<br/>
+        /// Example: Uhh, did you see the weather in Palo Alto tomorrow? Yeah, can't believe it's gonna rain, dude. Like what?
         /// </param>
         /// <param name="model">
-        /// The model to use for synthesis. Learn more about models [here](https://docs.lmnt.com/guides/models).<br/>
+        /// The model to use for speech generation. Learn more about models [here](https://docs.lmnt.com/models/overview).<br/>
         /// Default Value: blizzard
         /// </param>
         /// <param name="language">
@@ -119,7 +113,7 @@ namespace LMNT
         /// Default Value: auto
         /// </param>
         /// <param name="format">
-        /// The desired output format of the audio. If you are using a streaming endpoint, you'll generate audio faster by selecting a streamable format since chunks are encoded and returned as they're generated. For non-streamable formats, the entire audio will be synthesized before encoding.<br/>
+        /// The desired output format of the audio. If you are using a streaming endpoint, you'll generate audio faster by selecting a streamable format since chunks are encoded and returned as they're generated. For non-streamable formats, all speech will be generated before encoding.<br/>
         /// Streamable formats:<br/>
         /// - `mp3`: 96kbps MP3 audio.<br/>
         /// - `ulaw`: 8-bit G711 µ-law audio with a WAV header.<br/>
@@ -134,9 +128,6 @@ namespace LMNT
         /// <param name="sampleRate">
         /// The desired output sample rate in Hz. Defaults to `24000` for all formats except `mulaw` which defaults to `8000`.<br/>
         /// Default Value: 24000
-        /// </param>
-        /// <param name="seed">
-        /// Seed used to specify a different take; defaults to random
         /// </param>
         /// <param name="debug">
         /// When set to true, the generated speech will also be saved to your [clip library](https://app.lmnt.com/clips) in the LMNT playground.<br/>
@@ -160,7 +151,6 @@ namespace LMNT
             global::LMNT.LanguageCode? language,
             global::LMNT.OutputFormat? format,
             double? sampleRate,
-            int? seed,
             bool? debug,
             double? topP,
             double? temperature)
@@ -171,7 +161,6 @@ namespace LMNT
             this.Language = language;
             this.Format = format;
             this.SampleRate = sampleRate;
-            this.Seed = seed;
             this.Debug = debug;
             this.TopP = topP;
             this.Temperature = temperature;

@@ -56,7 +56,13 @@ namespace LMNT
         public required string State { get; set; }
 
         /// <summary>
-        /// The method by which this voice was created: `instant` or `professional`.
+        /// Tags attached to this voice.
+        /// </summary>
+        [global::System.Text.Json.Serialization.JsonPropertyName("tags")]
+        public global::System.Collections.Generic.IList<string>? Tags { get; set; }
+
+        /// <summary>
+        /// The method by which this voice was created. Always `instant`.
         /// </summary>
         [global::System.Text.Json.Serialization.JsonPropertyName("type")]
         [global::System.Text.Json.Serialization.JsonConverter(typeof(global::LMNT.JsonConverters.VoiceTypeJsonConverter))]
@@ -98,8 +104,11 @@ namespace LMNT
         /// <param name="starred">
         /// Whether this voice has been starred by you or not.
         /// </param>
+        /// <param name="tags">
+        /// Tags attached to this voice.
+        /// </param>
         /// <param name="type">
-        /// The method by which this voice was created: `instant` or `professional`.
+        /// The method by which this voice was created. Always `instant`.
         /// </param>
         /// <param name="previewUrl">
         /// A URL that returns a preview speech sample of this voice. The file can be played directly in a browser or audio player.
@@ -115,6 +124,7 @@ namespace LMNT
             string? description,
             string? gender,
             bool? starred,
+            global::System.Collections.Generic.IList<string>? tags,
             global::LMNT.VoiceType? type,
             string? previewUrl)
         {
@@ -125,6 +135,7 @@ namespace LMNT
             this.Owner = owner;
             this.Starred = starred;
             this.State = state ?? throw new global::System.ArgumentNullException(nameof(state));
+            this.Tags = tags;
             this.Type = type;
             this.PreviewUrl = previewUrl;
         }

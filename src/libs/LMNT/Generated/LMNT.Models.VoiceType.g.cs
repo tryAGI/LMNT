@@ -4,18 +4,14 @@
 namespace LMNT
 {
     /// <summary>
-    /// The method by which this voice was created: `instant` or `professional`.
+    /// The method by which this voice was created. Always `instant`.
     /// </summary>
     public enum VoiceType
     {
         /// <summary>
-        /// `instant` or `professional`.
+        ///
         /// </summary>
         Instant,
-        /// <summary>
-        /// `instant` or `professional`.
-        /// </summary>
-        Professional,
     }
 
     /// <summary>
@@ -31,7 +27,6 @@ namespace LMNT
             return value switch
             {
                 VoiceType.Instant => "instant",
-                VoiceType.Professional => "professional",
                 _ => throw new global::System.ArgumentOutOfRangeException(nameof(value), value, null),
             };
         }
@@ -43,7 +38,6 @@ namespace LMNT
             return value switch
             {
                 "instant" => VoiceType.Instant,
-                "professional" => VoiceType.Professional,
                 _ => null,
             };
         }

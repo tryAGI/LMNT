@@ -4,41 +4,40 @@
 namespace LMNT
 {
     /// <summary>
-    /// The model to use for speech generation. Learn more about models [here](https://docs.lmnt.com/models/overview).<br/>
-    /// Default Value: blizzard
+    /// Discriminator. Always `error`.
     /// </summary>
-    public enum Model
+    public enum ErrorResponseType
     {
         /// <summary>
         ///
         /// </summary>
-        Blizzard,
+        Error,
     }
 
     /// <summary>
     /// Enum extensions to do fast conversions without the reflection.
     /// </summary>
-    public static class ModelExtensions
+    public static class ErrorResponseTypeExtensions
     {
         /// <summary>
         /// Converts an enum to a string.
         /// </summary>
-        public static string ToValueString(this Model value)
+        public static string ToValueString(this ErrorResponseType value)
         {
             return value switch
             {
-                Model.Blizzard => "blizzard",
+                ErrorResponseType.Error => "error",
                 _ => throw new global::System.ArgumentOutOfRangeException(nameof(value), value, null),
             };
         }
         /// <summary>
         /// Converts an string to a enum.
         /// </summary>
-        public static Model? ToEnum(string value)
+        public static ErrorResponseType? ToEnum(string value)
         {
             return value switch
             {
-                "blizzard" => Model.Blizzard,
+                "error" => ErrorResponseType.Error,
                 _ => null,
             };
         }

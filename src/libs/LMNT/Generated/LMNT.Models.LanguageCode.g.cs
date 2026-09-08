@@ -16,7 +16,23 @@ namespace LMNT
         /// <summary>
         ///
         /// </summary>
+        As,
+        /// <summary>
+        ///
+        /// </summary>
         Auto,
+        /// <summary>
+        ///
+        /// </summary>
+        Bn,
+        /// <summary>
+        ///
+        /// </summary>
+        Cs,
+        /// <summary>
+        ///
+        /// </summary>
+        Da,
         /// <summary>
         ///
         /// </summary>
@@ -29,6 +45,10 @@ namespace LMNT
         ///
         /// </summary>
         Es,
+        /// <summary>
+        ///
+        /// </summary>
+        Fi,
         /// <summary>
         ///
         /// </summary>
@@ -56,6 +76,14 @@ namespace LMNT
         /// <summary>
         ///
         /// </summary>
+        Ml,
+        /// <summary>
+        ///
+        /// </summary>
+        Mr,
+        /// <summary>
+        ///
+        /// </summary>
         Nl,
         /// <summary>
         ///
@@ -72,7 +100,19 @@ namespace LMNT
         /// <summary>
         ///
         /// </summary>
+        Sk,
+        /// <summary>
+        ///
+        /// </summary>
         Sv,
+        /// <summary>
+        ///
+        /// </summary>
+        Ta,
+        /// <summary>
+        ///
+        /// </summary>
+        Te,
         /// <summary>
         ///
         /// </summary>
@@ -112,21 +152,31 @@ namespace LMNT
             return value switch
             {
                 LanguageCode.Ar => "ar",
+                LanguageCode.As => "as",
                 LanguageCode.Auto => "auto",
+                LanguageCode.Bn => "bn",
+                LanguageCode.Cs => "cs",
+                LanguageCode.Da => "da",
                 LanguageCode.De => "de",
                 LanguageCode.En => "en",
                 LanguageCode.Es => "es",
+                LanguageCode.Fi => "fi",
                 LanguageCode.Fr => "fr",
                 LanguageCode.Hi => "hi",
                 LanguageCode.Id => "id",
                 LanguageCode.It => "it",
                 LanguageCode.Ja => "ja",
                 LanguageCode.Ko => "ko",
+                LanguageCode.Ml => "ml",
+                LanguageCode.Mr => "mr",
                 LanguageCode.Nl => "nl",
                 LanguageCode.Pl => "pl",
                 LanguageCode.Pt => "pt",
                 LanguageCode.Ru => "ru",
+                LanguageCode.Sk => "sk",
                 LanguageCode.Sv => "sv",
+                LanguageCode.Ta => "ta",
+                LanguageCode.Te => "te",
                 LanguageCode.Th => "th",
                 LanguageCode.Tr => "tr",
                 LanguageCode.Uk => "uk",
@@ -144,21 +194,31 @@ namespace LMNT
             return value switch
             {
                 "ar" => LanguageCode.Ar,
+                "as" => LanguageCode.As,
                 "auto" => LanguageCode.Auto,
+                "bn" => LanguageCode.Bn,
+                "cs" => LanguageCode.Cs,
+                "da" => LanguageCode.Da,
                 "de" => LanguageCode.De,
                 "en" => LanguageCode.En,
                 "es" => LanguageCode.Es,
+                "fi" => LanguageCode.Fi,
                 "fr" => LanguageCode.Fr,
                 "hi" => LanguageCode.Hi,
                 "id" => LanguageCode.Id,
                 "it" => LanguageCode.It,
                 "ja" => LanguageCode.Ja,
                 "ko" => LanguageCode.Ko,
+                "ml" => LanguageCode.Ml,
+                "mr" => LanguageCode.Mr,
                 "nl" => LanguageCode.Nl,
                 "pl" => LanguageCode.Pl,
                 "pt" => LanguageCode.Pt,
                 "ru" => LanguageCode.Ru,
+                "sk" => LanguageCode.Sk,
                 "sv" => LanguageCode.Sv,
+                "ta" => LanguageCode.Ta,
+                "te" => LanguageCode.Te,
                 "th" => LanguageCode.Th,
                 "tr" => LanguageCode.Tr,
                 "uk" => LanguageCode.Uk,

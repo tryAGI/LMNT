@@ -4,7 +4,7 @@
 namespace LMNT
 {
     /// <summary>
-    /// The desired output format of the audio. If you are using a streaming endpoint, you'll generate audio faster by selecting a streamable format since chunks are encoded and returned as they're generated. For non-streamable formats, the entire audio will be synthesized before encoding.<br/>
+    /// The desired output format of the audio. If you are using a streaming endpoint, you'll generate audio faster by selecting a streamable format since chunks are encoded and returned as they're generated. For non-streamable formats, all speech will be generated before encoding.<br/>
     /// Streamable formats:<br/>
     /// - `mp3`: 96kbps MP3 audio.<br/>
     /// - `ulaw`: 8-bit G711 µ-law audio with a WAV header.<br/>
